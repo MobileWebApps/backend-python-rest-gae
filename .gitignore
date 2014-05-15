@@ -13,3 +13,8 @@ filetransfers
 mapreduce
 
 build
+
+#################
+## IntelliJ
+#################
+.idea
