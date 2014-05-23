@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
-from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, routers
+from quickstart import views
 import dbindexer
 
 handler500 = 'djangotoolbox.errorviews.server_error'
@@ -15,20 +15,10 @@ dbindexer.autodiscover()
 
 
 
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    model = User
-
-class GroupViewSet(viewsets.ModelViewSet):
-    model = Group
-
-
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
-
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 
 
 
