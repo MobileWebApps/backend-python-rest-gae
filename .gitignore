@@ -1,3 +1,5 @@
+virtual_env
+
 .DS_Store
 *.pyc
 .gaedata
