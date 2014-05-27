@@ -1,9 +1,12 @@
 # Initialize App Engine and import the default settings (DB backend, etc.).
 # If you want to use a different backend you have to remove all occurences
 # of "djangoappengine" from this file.
-from djangoappengine.settings_base import *
 
 import os
+import sys
+sys.path.append("./lib")
+
+from djangoappengine.settings_base import *
 
 # Activate django-dbindexer for the default database
 DATABASES['native'] = DATABASES['default']
