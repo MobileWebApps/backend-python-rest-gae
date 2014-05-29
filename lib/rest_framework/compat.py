@@ -292,9 +292,9 @@ else:
                     return self._accept(request)
 
                 if request.is_secure():
-                    # Suppose user visits http://example.com/
+                    # Suppose user visits http://app_scaffolding.com/
                     # An active network attacker,(man-in-the-middle, MITM) sends a
-                    # POST form which targets https://example.com/detonate-bomb/ and
+                    # POST form which targets https://app_scaffolding.com/detonate-bomb/ and
                     # submits it via javascript.
                     #
                     # The attacker will need to provide a CSRF cookie and token, but
@@ -302,8 +302,8 @@ else:
                     # nonce we are using. So the MITM can circumvent the CSRF
                     # protection. This is true for any HTTP connection, but anyone
                     # using HTTPS expects better!  For this reason, for
-                    # https://example.com/ we need additional protection that treats
-                    # http://example.com/ as completely untrusted.  Under HTTPS,
+                    # https://app_scaffolding.com/ we need additional protection that treats
+                    # http://app_scaffolding.com/ as completely untrusted.  Under HTTPS,
                     # Barth et al. found that the Referer header is missing for
                     # same-domain requests in only about 0.2% of cases or less, so
                     # we can use strict Referer checking.

@@ -19,7 +19,7 @@ def example(request):
     A view that can returns an HTML representation.
     """
     data = {'object': 'foobar'}
-    return Response(data, template_name='example.html')
+    return Response(data, template_name='app_scaffolding.html')
 
 
 @api_view(('GET',))
@@ -51,8 +51,8 @@ class TemplateHTMLRendererTests(TestCase):
         self.get_template = django.template.loader.get_template
 
         def get_template(template_name, dirs=None):
-            if template_name == 'example.html':
-                return Template("example: {{ object }}")
+            if template_name == 'app_scaffolding.html':
+                return Template("app_scaffolding: {{ object }}")
             raise TemplateDoesNotExist(template_name)
 
         django.template.loader.get_template = get_template
@@ -65,7 +65,7 @@ class TemplateHTMLRendererTests(TestCase):
 
     def test_simple_html_view(self):
         response = self.client.get('/')
-        self.assertContains(response, "example: foobar")
+        self.assertContains(response, "app_scaffolding: foobar")
         self.assertEqual(response['Content-Type'], 'text/html; charset=utf-8')
 
     def test_not_found_html_view(self):

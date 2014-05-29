@@ -8,7 +8,7 @@ class ImportingModelSerializerTests(TestCase):
     """
     In some situations like, GH #1225, it is possible, especially in
     testing, to import a serializer who's related models have not yet
-    been resolved by Django. `AccountSerializer` is an example of such
+    been resolved by Django. `AccountSerializer` is an app_scaffolding of such
     a serializer (imported at the top of this file).
     """
     def test_import_model_serializer(self):

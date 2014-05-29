@@ -78,7 +78,7 @@ class BasicAuthTests(TestCase):
         credentials = ('%s:%s' % (self.username, self.password))
         base64_credentials = base64.b64encode(credentials.encode(HTTP_HEADER_ENCODING)).decode(HTTP_HEADER_ENCODING)
         auth = 'Basic %s' % base64_credentials
-        response = self.csrf_client.post('/basic/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/basic/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_json_passing_basic_auth(self):
@@ -86,17 +86,17 @@ class BasicAuthTests(TestCase):
         credentials = ('%s:%s' % (self.username, self.password))
         base64_credentials = base64.b64encode(credentials.encode(HTTP_HEADER_ENCODING)).decode(HTTP_HEADER_ENCODING)
         auth = 'Basic %s' % base64_credentials
-        response = self.csrf_client.post('/basic/', {'example': 'example'}, format='json', HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/basic/', {'app_scaffolding': 'app_scaffolding'}, format='json', HTTP_AUTHORIZATION=auth)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_form_failing_basic_auth(self):
         """Ensure POSTing form over basic auth without correct credentials fails"""
-        response = self.csrf_client.post('/basic/', {'example': 'example'})
+        response = self.csrf_client.post('/basic/', {'app_scaffolding': 'app_scaffolding'})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_post_json_failing_basic_auth(self):
         """Ensure POSTing json over basic auth without correct credentials fails"""
-        response = self.csrf_client.post('/basic/', {'example': 'example'}, format='json')
+        response = self.csrf_client.post('/basic/', {'app_scaffolding': 'app_scaffolding'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response['WWW-Authenticate'], 'Basic realm="api"')
 
@@ -121,7 +121,7 @@ class SessionAuthTests(TestCase):
         Ensure POSTing form over session authentication without CSRF token fails.
         """
         self.csrf_client.login(username=self.username, password=self.password)
-        response = self.csrf_client.post('/session/', {'example': 'example'})
+        response = self.csrf_client.post('/session/', {'app_scaffolding': 'app_scaffolding'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_post_form_session_auth_passing(self):
@@ -129,7 +129,7 @@ class SessionAuthTests(TestCase):
         Ensure POSTing form over session authentication with logged in user and CSRF token passes.
         """
         self.non_csrf_client.login(username=self.username, password=self.password)
-        response = self.non_csrf_client.post('/session/', {'example': 'example'})
+        response = self.non_csrf_client.post('/session/', {'app_scaffolding': 'app_scaffolding'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_put_form_session_auth_passing(self):
@@ -137,14 +137,14 @@ class SessionAuthTests(TestCase):
         Ensure PUTting form over session authentication with logged in user and CSRF token passes.
         """
         self.non_csrf_client.login(username=self.username, password=self.password)
-        response = self.non_csrf_client.put('/session/', {'example': 'example'})
+        response = self.non_csrf_client.put('/session/', {'app_scaffolding': 'app_scaffolding'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_form_session_auth_failing(self):
         """
         Ensure POSTing form over session authentication without logged in user fails.
         """
-        response = self.csrf_client.post('/session/', {'example': 'example'})
+        response = self.csrf_client.post('/session/', {'app_scaffolding': 'app_scaffolding'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
@@ -165,23 +165,23 @@ class TokenAuthTests(TestCase):
     def test_post_form_passing_token_auth(self):
         """Ensure POSTing json over token auth with correct credentials passes and does not require CSRF"""
         auth = 'Token ' + self.key
-        response = self.csrf_client.post('/token/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/token/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_json_passing_token_auth(self):
         """Ensure POSTing form over token auth with correct credentials passes and does not require CSRF"""
         auth = "Token " + self.key
-        response = self.csrf_client.post('/token/', {'example': 'example'}, format='json', HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/token/', {'app_scaffolding': 'app_scaffolding'}, format='json', HTTP_AUTHORIZATION=auth)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post_form_failing_token_auth(self):
         """Ensure POSTing form over token auth without correct credentials fails"""
-        response = self.csrf_client.post('/token/', {'example': 'example'})
+        response = self.csrf_client.post('/token/', {'app_scaffolding': 'app_scaffolding'})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_post_json_failing_token_auth(self):
         """Ensure POSTing json over token auth without correct credentials fails"""
-        response = self.csrf_client.post('/token/', {'example': 'example'}, format='json')
+        response = self.csrf_client.post('/token/', {'app_scaffolding': 'app_scaffolding'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_token_has_auto_assigned_key_if_none_provided(self):
@@ -267,7 +267,7 @@ class OAuthTests(TestCase):
         self.TOKEN_SECRET = "token_secret"
 
         self.consumer = Consumer.objects.create(key=self.CONSUMER_KEY, secret=self.CONSUMER_SECRET,
-            name='example', user=self.user, status=self.consts.ACCEPTED)
+            name='app_scaffolding', user=self.user, status=self.consts.ACCEPTED)
 
         self.scope = Scope.objects.create(name="resource name", url="api/")
         self.token = OAuthToken.objects.create(user=self.user, consumer=self.consumer, scope=self.scope,
@@ -283,7 +283,7 @@ class OAuthTests(TestCase):
             'oauth_consumer_key': self.consumer.key
         }
 
-        req = oauth.Request(method="GET", url="http://example.com", parameters=params)
+        req = oauth.Request(method="GET", url="http://app_scaffolding.com", parameters=params)
 
         signature_method = oauth.SignatureMethod_PLAINTEXT()
         req.sign_request(signature_method, self.consumer, self.token)
@@ -299,7 +299,7 @@ class OAuthTests(TestCase):
             'oauth_consumer_key': self.consumer.key
         }
 
-        req = oauth.Request(method="GET", url="http://example.com", parameters=params)
+        req = oauth.Request(method="GET", url="http://app_scaffolding.com", parameters=params)
 
         signature_method = oauth.SignatureMethod_PLAINTEXT()
         req.sign_request(signature_method, self.consumer, self.token)
@@ -310,7 +310,7 @@ class OAuthTests(TestCase):
     def test_post_form_passing_oauth(self):
         """Ensure POSTing form over OAuth with correct credentials passes and does not require CSRF"""
         auth = self._create_authorization_header()
-        response = self.csrf_client.post('/oauth/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/oauth/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertEqual(response.status_code, 200)
 
     @unittest.skipUnless(oauth_provider, 'django-oauth-plus not installed')
@@ -318,11 +318,11 @@ class OAuthTests(TestCase):
     def test_post_form_repeated_nonce_failing_oauth(self):
         """Ensure POSTing form over OAuth with repeated auth (same nonces and timestamp) credentials fails"""
         auth = self._create_authorization_header()
-        response = self.csrf_client.post('/oauth/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/oauth/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertEqual(response.status_code, 200)
 
         # simulate reply attack auth header containes already used (nonce, timestamp) pair
-        response = self.csrf_client.post('/oauth/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/oauth/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertIn(response.status_code, (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN))
 
     @unittest.skipUnless(oauth_provider, 'django-oauth-plus not installed')
@@ -331,7 +331,7 @@ class OAuthTests(TestCase):
         """Ensure POSTing when there is no OAuth access token in db fails"""
         self.token.delete()
         auth = self._create_authorization_header()
-        response = self.csrf_client.post('/oauth/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/oauth/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertIn(response.status_code, (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN))
 
     @unittest.skipUnless(oauth_provider, 'django-oauth-plus not installed')
@@ -343,7 +343,7 @@ class OAuthTests(TestCase):
             self.consumer.save()
 
             auth = self._create_authorization_header()
-            response = self.csrf_client.post('/oauth/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+            response = self.csrf_client.post('/oauth/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
             self.assertIn(response.status_code, (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN))
 
     @unittest.skipUnless(oauth_provider, 'django-oauth-plus not installed')
@@ -354,7 +354,7 @@ class OAuthTests(TestCase):
         self.token.save()
 
         auth = self._create_authorization_header()
-        response = self.csrf_client.post('/oauth/', {'example': 'example'}, HTTP_AUTHORIZATION=auth)
+        response = self.csrf_client.post('/oauth/', {'app_scaffolding': 'app_scaffolding'}, HTTP_AUTHORIZATION=auth)
         self.assertIn(response.status_code, (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN))
 
     @unittest.skipUnless(oauth_provider, 'django-oauth-plus not installed')
@@ -493,7 +493,7 @@ class OAuth2Tests(TestCase):
                 client_secret=self.CLIENT_SECRET,
                 redirect_uri='',
                 client_type=0,
-                name='example',
+                name='app_scaffolding',
                 user=None,
             )
 

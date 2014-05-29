@@ -472,7 +472,7 @@ class TestCreateModelWithAutoNowAddField(TestCase):
 
         https://github.com/tomchristie/django-rest-framework/issues/285
         """
-        data = {'email': 'foobar@example.com', 'content': 'foobar'}
+        data = {'email': 'foobar@app_scaffolding.com', 'content': 'foobar'}
         request = factory.post('/', data, format='json')
         response = self.view(request).render()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

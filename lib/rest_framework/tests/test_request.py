@@ -267,7 +267,7 @@ class MockView(APIView):
     authentication_classes = (SessionAuthentication,)
 
     def post(self, request):
-        if request.POST.get('example') is not None:
+        if request.POST.get('app_scaffolding') is not None:
             return Response(status=status.HTTP_200_OK)
 
         return Response(status=status.INTERNAL_SERVER_ERROR)
@@ -292,7 +292,7 @@ class TestContentParsingWithAuthentication(TestCase):
         Ensures request.POST exists after SessionAuthentication when user
         doesn't log in.
         """
-        content = {'example': 'example'}
+        content = {'app_scaffolding': 'app_scaffolding'}
 
         response = self.client.post('/', content)
         self.assertEqual(status.HTTP_200_OK, response.status_code)
@@ -304,7 +304,7 @@ class TestContentParsingWithAuthentication(TestCase):
     #     """Ensures request.POST exists after UserLoggedInAuthentication when user does log in"""
     #     self.client.login(username='john', password='password')
     #     self.csrf_client.login(username='john', password='password')
-    #     content = {'example': 'example'}
+    #     content = {'app_scaffolding': 'app_scaffolding'}
 
     #     response = self.client.post('/', content)
     #     self.assertEqual(status.OK, response.status_code, "POST data is malformed")

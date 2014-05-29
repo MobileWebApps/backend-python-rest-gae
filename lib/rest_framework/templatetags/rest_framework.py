@@ -106,7 +106,7 @@ def replace_query_param(url, key, val):
     return urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
 
-# Regex for adding classes to html snippets
+# Regex for adding classes to html snippets_tutorial
 class_re = re.compile(r'(?<=class=["\'])(.*)(?=["\'])')
 
 

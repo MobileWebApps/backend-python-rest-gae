@@ -35,14 +35,14 @@ def basic_auth_header(username, password):
 
 class ModelPermissionsIntegrationTests(TestCase):
     def setUp(self):
-        User.objects.create_user('disallowed', 'disallowed@example.com', 'password')
-        user = User.objects.create_user('permitted', 'permitted@example.com', 'password')
+        User.objects.create_user('disallowed', 'disallowed@app_scaffolding.com', 'password')
+        user = User.objects.create_user('permitted', 'permitted@app_scaffolding.com', 'password')
         user.user_permissions = [
             Permission.objects.get(codename='add_basicmodel'),
             Permission.objects.get(codename='change_basicmodel'),
             Permission.objects.get(codename='delete_basicmodel')
         ]
-        user = User.objects.create_user('updateonly', 'updateonly@example.com', 'password')
+        user = User.objects.create_user('updateonly', 'updateonly@app_scaffolding.com', 'password')
         user.user_permissions = [
             Permission.objects.get(codename='change_basicmodel'),
         ]
@@ -194,10 +194,10 @@ class ObjectPermissionsIntegrationTests(TestCase):
         # create users
         create = User.objects.create_user
         users = {
-            'fullaccess': create('fullaccess', 'fullaccess@example.com', 'password'),
-            'readonly': create('readonly', 'readonly@example.com', 'password'),
-            'writeonly': create('writeonly', 'writeonly@example.com', 'password'),
-            'deleteonly': create('deleteonly', 'deleteonly@example.com', 'password'),
+            'fullaccess': create('fullaccess', 'fullaccess@app_scaffolding.com', 'password'),
+            'readonly': create('readonly', 'readonly@app_scaffolding.com', 'password'),
+            'writeonly': create('writeonly', 'writeonly@app_scaffolding.com', 'password'),
+            'deleteonly': create('deleteonly', 'deleteonly@app_scaffolding.com', 'password'),
         }
 
         # give everyone model level permissions, as we are not testing those

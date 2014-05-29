@@ -114,7 +114,7 @@ SHORT_REF_RE = NOIMG + r'\[([^\]]+)\]'                   # [Google]
 IMAGE_REFERENCE_RE = r'\!' + BRK + '\s?\[([^\]]*)\]' # ![alt text][2]
 NOT_STRONG_RE = r'((^| )(\*|_)( |$))'                        # stand-alone * or _
 AUTOLINK_RE = r'<((?:[Ff]|[Hh][Tt])[Tt][Pp][Ss]?://[^>]*)>' # <http://www.123.com>
-AUTOMAIL_RE = r'<([^> \!]*@[^> ]*)>'               # <me@example.com>
+AUTOMAIL_RE = r'<([^> \!]*@[^> ]*)>'               # <me@app_scaffolding.com>
 
 HTML_RE = r'(\<([a-zA-Z/][^\>]*?|\!--.*?--)\>)'               # <...>
 ENTITY_RE = r'(&[\#a-zA-Z0-9]*;)'               # &amp;
@@ -446,7 +446,7 @@ class ImageReferencePattern(ReferencePattern):
 
 
 class AutolinkPattern(Pattern):
-    """ Return a link Element given an autolink (`<http://example/com>`). """
+    """ Return a link Element given an autolink (`<http://app_scaffolding/com>`). """
     def handleMatch(self, m):
         el = util.etree.Element("a")
         el.set('href', self.unescape(m.group(2)))
@@ -455,7 +455,7 @@ class AutolinkPattern(Pattern):
 
 class AutomailPattern(Pattern):
     """
-    Return a mailto link Element given an automail link (`<foo@example.com>`).
+    Return a mailto link Element given an automail link (`<foo@app_scaffolding.com>`).
     """
     def handleMatch(self, m):
         el = util.etree.Element('a')

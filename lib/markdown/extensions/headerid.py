@@ -36,7 +36,7 @@ To fit within a html template's hierarchy, set the header base level:
 
 Works with inline markup.
 
-    >>> text = '#Some *Header* with [markup](http://example.com).'
+    >>> text = app_scaffolding
     >>> md = markdown.markdown(text, ['headerid'])
     >>> print md
     <h1 id="some-header-with-markup">Some <em>Header</em> with <a href="http://example.com">markup</a>.</h1>

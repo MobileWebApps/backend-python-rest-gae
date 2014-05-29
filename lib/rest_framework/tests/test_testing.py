@@ -44,25 +44,25 @@ class TestAPITestClient(TestCase):
         """
         Setting `.credentials()` adds the required headers to each request.
         """
-        self.client.credentials(HTTP_AUTHORIZATION='example')
+        self.client.credentials(HTTP_AUTHORIZATION='app_scaffolding')
         for _ in range(0, 3):
             response = self.client.get('/view/')
-            self.assertEqual(response.data['auth'], 'example')
+            self.assertEqual(response.data['auth'], 'app_scaffolding')
 
     def test_force_authenticate(self):
         """
         Setting `.force_authenticate()` forcibly authenticates each request.
         """
-        user = User.objects.create_user('example', 'example@example.com')
+        user = User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com')
         self.client.force_authenticate(user)
         response = self.client.get('/view/')
-        self.assertEqual(response.data['user'], 'example')
+        self.assertEqual(response.data['user'], 'app_scaffolding')
 
     def test_force_authenticate_with_sessions(self):
         """
         Setting `.force_authenticate()` forcibly authenticates each request.
         """
-        user = User.objects.create_user('example', 'example@example.com')
+        user = User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com')
         self.client.force_authenticate(user)
 
         # First request does not yet have an active session
@@ -82,8 +82,8 @@ class TestAPITestClient(TestCase):
         """
         By default, the test client is CSRF exempt.
         """
-        User.objects.create_user('example', 'example@example.com', 'password')
-        self.client.login(username='example', password='password')
+        User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com', 'password')
+        self.client.login(username='app_scaffolding', password='password')
         response = self.client.post('/view/')
         self.assertEqual(response.status_code, 200)
 
@@ -92,8 +92,8 @@ class TestAPITestClient(TestCase):
         The test client can enforce CSRF checks.
         """
         client = APIClient(enforce_csrf_checks=True)
-        User.objects.create_user('example', 'example@example.com', 'password')
-        client.login(username='example', password='password')
+        User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com', 'password')
+        client.login(username='app_scaffolding', password='password')
         response = client.post('/view/')
         expected = {'detail': 'CSRF Failed: CSRF cookie not set.'}
         self.assertEqual(response.status_code, 403)
@@ -105,7 +105,7 @@ class TestAPIRequestFactory(TestCase):
         """
         By default, the test client is CSRF exempt.
         """
-        user = User.objects.create_user('example', 'example@example.com', 'password')
+        user = User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com', 'password')
         factory = APIRequestFactory()
         request = factory.post('/view/')
         request.user = user
@@ -116,7 +116,7 @@ class TestAPIRequestFactory(TestCase):
         """
         The test client can enforce CSRF checks.
         """
-        user = User.objects.create_user('example', 'example@example.com', 'password')
+        user = User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com', 'password')
         factory = APIRequestFactory(enforce_csrf_checks=True)
         request = factory.post('/view/')
         request.user = user
@@ -132,19 +132,19 @@ class TestAPIRequestFactory(TestCase):
         """
         factory = APIRequestFactory()
         self.assertRaises(AssertionError, factory.post,
-            path='/view/', data={'example': 1}, format='xml'
+            path='/view/', data={'app_scaffolding': 1}, format='xml'
         )
 
     def test_force_authenticate(self):
         """
         Setting `force_authenticate()` forcibly authenticates the request.
         """
-        user = User.objects.create_user('example', 'example@example.com')
+        user = User.objects.create_user('app_scaffolding', 'app_scaffolding@app_scaffolding.com')
         factory = APIRequestFactory()
         request = factory.get('/view')
         force_authenticate(request, user=user)
         response = view(request)
-        self.assertEqual(response.data['user'], 'example')
+        self.assertEqual(response.data['user'], 'app_scaffolding')
 
     def test_upload_file(self):
         # This is a 1x1 black png

@@ -31,7 +31,7 @@ Custom settings the complex way:
     >>> md = markdown.Markdown(
     ...     extensions = ['wikilinks'], 
     ...     extension_configs = {'wikilinks': [
-    ...                                 ('base_url', 'http://example.com/'), 
+    ...                                 ('base_url', app_scaffolding),
     ...                                 ('end_url', '.html'),
     ...                                 ('html_class', '') ]},
     ...     safe_mode = True)

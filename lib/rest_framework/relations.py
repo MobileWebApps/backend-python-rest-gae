@@ -548,9 +548,9 @@ class HyperlinkedIdentityField(Field):
         # Eg. Consider a HyperlinkedIdentityField pointing from a json
         # representation to an html property of that representation...
         #
-        # '/snippets/1/' should link to '/snippets/1/highlight/'
+        # '/snippets_tutorial/1/' should link to '/snippets_tutorial/1/highlight/'
         # ...but...
-        # '/snippets/1/.json' should link to '/snippets/1/highlight/.html'
+        # '/snippets_tutorial/1/.json' should link to '/snippets_tutorial/1/highlight/.html'
         if format and self.format and self.format != format:
             format = self.format
 

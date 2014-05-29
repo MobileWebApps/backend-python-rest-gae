@@ -173,19 +173,19 @@ class PositiveIntegerAsChoiceSerializer(serializers.ModelSerializer):
 class BasicTests(TestCase):
     def setUp(self):
         self.comment = Comment(
-            'tom@example.com',
+            'tom@app_scaffolding.com',
             'Happy new year!',
             datetime.datetime(2012, 1, 1)
         )
         self.actionitem = ActionItem(title='Some to do item',)
         self.data = {
-            'email': 'tom@example.com',
+            'email': 'tom@app_scaffolding.com',
             'content': 'Happy new year!',
             'created': datetime.datetime(2012, 1, 1),
             'sub_comment': 'This wont change'
         }
         self.expected = {
-            'email': 'tom@example.com',
+            'email': 'tom@app_scaffolding.com',
             'content': 'Happy new year!',
             'created': datetime.datetime(2012, 1, 1),
             'sub_comment': 'And Merry Christmas!'
@@ -339,7 +339,7 @@ class DictStyleSerializerTests(TestCase):
         """
         Ensure serializers can deserialize into a dict.
         """
-        data = {'email': 'foo@example.com'}
+        data = {'email': 'foo@app_scaffolding.com'}
         serializer = DictStyleSerializer(data=data)
         self.assertTrue(serializer.is_valid())
         self.assertEqual(serializer.data, data)
@@ -348,7 +348,7 @@ class DictStyleSerializerTests(TestCase):
         """
         Ensure serializers can serialize dict objects.
         """
-        data = {'email': 'foo@example.com'}
+        data = {'email': 'foo@app_scaffolding.com'}
         serializer = DictStyleSerializer(data)
         self.assertEqual(serializer.data, data)
 
@@ -356,12 +356,12 @@ class DictStyleSerializerTests(TestCase):
 class ValidationTests(TestCase):
     def setUp(self):
         self.comment = Comment(
-            'tom@example.com',
+            'tom@app_scaffolding.com',
             'Happy new year!',
             datetime.datetime(2012, 1, 1)
         )
         self.data = {
-            'email': 'tom@example.com',
+            'email': 'tom@app_scaffolding.com',
             'content': 'x' * 1001,
             'created': datetime.datetime(2012, 1, 1)
         }
@@ -407,8 +407,8 @@ class ValidationTests(TestCase):
                 return attrs
 
         data = {
-            'email': 'tom@example.com',
-            'content': 'A comment from tom@example.com',
+            'email': 'tom@app_scaffolding.com',
+            'content': 'A comment from tom@app_scaffolding.com',
             'created': datetime.datetime(2012, 1, 1)
         }
 
@@ -532,7 +532,7 @@ class CustomValidationTests(TestCase):
 
     def test_field_validation(self):
         data = {
-            'email': 'tom@example.com',
+            'email': 'tom@app_scaffolding.com',
             'content': 'A test comment',
             'created': datetime.datetime(2012, 1, 1)
         }
@@ -551,7 +551,7 @@ class CustomValidationTests(TestCase):
         Make sure that validate_content isn't called if the field is missing
         """
         incomplete_data = {
-            'email': 'tom@example.com',
+            'email': 'tom@app_scaffolding.com',
             'created': datetime.datetime(2012, 1, 1)
         }
         serializer = self.CommentSerializerWithFieldValidator(data=incomplete_data)
@@ -577,7 +577,7 @@ class CustomValidationTests(TestCase):
         isn't found in data.
         """
         initial_data = {
-            'email': 'tom@example.com',
+            'email': 'tom@app_scaffolding.com',
             'content': 'A test comment',
             'created': datetime.datetime(2012, 1, 1)
         }

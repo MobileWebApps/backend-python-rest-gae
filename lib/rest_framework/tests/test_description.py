@@ -8,7 +8,7 @@ from rest_framework.tests.description import ViewWithNonASCIICharactersInDocstri
 from rest_framework.tests.description import UTF8_TEST_DOCSTRING
 
 # We check that docstrings get nicely un-indented.
-DESCRIPTION = """an example docstring
+DESCRIPTION = """an app_scaffolding docstring
 ====================
 
 * list
@@ -27,7 +27,7 @@ indented
 # (and that our wrapped forces '=' to h2 and '-' to h3)
 
 # We support markdown < 2.1 and markdown >= 2.1
-MARKED_DOWN_lt_21 = """<h2>an example docstring</h2>
+MARKED_DOWN_lt_21 = """<h2>an app_scaffolding docstring</h2>
 <ul>
 <li>list</li>
 <li>list</li>
@@ -38,7 +38,7 @@ MARKED_DOWN_lt_21 = """<h2>an example docstring</h2>
 <p>indented</p>
 <h2 id="hash_style_header">hash style header</h2>"""
 
-MARKED_DOWN_gte_21 = """<h2 id="an-example-docstring">an example docstring</h2>
+MARKED_DOWN_gte_21 = """<h2 id="an-app_scaffolding-docstring">an app_scaffolding docstring</h2>
 <ul>
 <li>list</li>
 <li>list</li>
@@ -62,7 +62,7 @@ class TestViewNamesAndDescriptions(TestCase):
     def test_view_description_uses_docstring(self):
         """Ensure view descriptions are based on the docstring."""
         class MockView(APIView):
-            """an example docstring
+            """an app_scaffolding docstring
             ====================
 
             * list

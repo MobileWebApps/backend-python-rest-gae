@@ -47,5 +47,5 @@ class Issue1386Tests(TestCase):
             res = urlize_quoted_links(i)
             self.assertEqual(i, res)
 
-        # example from issue #1386, this shouldn't raise an exception
+        # app_scaffolding from issue #1386, this shouldn't raise an exception
         _ = urlize_quoted_links("asdf:[/p]zxcv.com")

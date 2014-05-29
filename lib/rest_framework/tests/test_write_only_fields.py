@@ -15,13 +15,13 @@ class WriteOnlyFieldTests(TestCase):
             password = serializers.CharField(write_only=True)
 
         data = {
-            'email': 'foo@example.com',
+            'email': 'foo@app_scaffolding.com',
             'password': '123'
         }
         serializer = ExampleSerializer(data=data)
         self.assertTrue(serializer.is_valid())
         self.assertEquals(serializer.object, data)
-        self.assertEquals(serializer.data, {'email': 'foo@example.com'})
+        self.assertEquals(serializer.data, {'email': 'foo@app_scaffolding.com'})
 
     def test_write_only_fields_meta(self):
         class ExampleSerializer(serializers.ModelSerializer):
@@ -31,7 +31,7 @@ class WriteOnlyFieldTests(TestCase):
                 write_only_fields = ('password',)
 
         data = {
-            'email': 'foo@example.com',
+            'email': 'foo@app_scaffolding.com',
             'password': '123'
         }
         serializer = ExampleSerializer(data=data)
@@ -39,4 +39,4 @@ class WriteOnlyFieldTests(TestCase):
         self.assertTrue(isinstance(serializer.object, ExampleModel))
         self.assertEquals(serializer.object.email, data['email'])
         self.assertEquals(serializer.object.password, data['password'])
-        self.assertEquals(serializer.data, {'email': 'foo@example.com'})
+        self.assertEquals(serializer.data, {'email': 'foo@app_scaffolding.com'})

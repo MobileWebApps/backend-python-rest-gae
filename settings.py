@@ -3,8 +3,13 @@
 # of "djangoappengine" from this file.
 
 import os
+
+
+#Add ./lib and ./apps directories to PYTHONPATH
 import sys
-sys.path.append("./lib")
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, "lib"))
+#sys.path.insert(0, os.path.join(PROJECT_ROOT, "apps"))
 
 from djangoappengine.settings_base import *
 
@@ -24,6 +29,7 @@ INSTALLED_APPS = (
     'autoload',
     'dbindexer',
     'rest_framework',
+    'apps.snippets_tutorial',
 
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
@@ -53,9 +59,17 @@ REST_FRAMEWORK = {
 
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+
+
+    #http://www.django-rest-framework.org/api-guide/permissions
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        #'rest_framework.permissions.IsAuthenticated',
+         'rest_framework.permissions.AllowAny',
+
     ],
+
+
     'PAGINATE_BY': 10,
 }
 

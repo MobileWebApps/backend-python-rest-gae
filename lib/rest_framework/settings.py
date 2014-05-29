@@ -169,7 +169,7 @@ def import_from_string(val, setting_name):
 class APISettings(object):
     """
     A settings object, that allows API settings to be accessed as properties.
-    For example:
+    For app_scaffolding:
 
         from rest_framework.settings import api_settings
         print api_settings.DEFAULT_RENDERER_CLASSES

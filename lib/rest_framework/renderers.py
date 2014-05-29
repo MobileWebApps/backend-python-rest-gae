@@ -126,7 +126,7 @@ class JSONPRenderer(JSONRenderer):
         Renders into jsonp, wrapping the json output in a callback function.
 
         Clients may set the callback function name using a query parameter
-        on the URL, for example: ?callback=exampleCallbackName
+        on the URL, for app_scaffolding: ?callback=exampleCallbackName
         """
         renderer_context = renderer_context or {}
         callback = self.get_callback(renderer_context)
@@ -219,7 +219,7 @@ class TemplateHTMLRenderer(BaseRenderer):
     2. An explicit `.template_name` attribute set on this class.
     3. The return result of calling `view.get_template_names()`.
 
-    For example:
+    For app_scaffolding:
         data = {'users': User.objects.all()}
         return Response(data, template_name='users.html')
 
@@ -299,8 +299,8 @@ class StaticHTMLRenderer(TemplateHTMLRenderer):
     The data supplied to the Response object should be a string representing
     the pre-rendered HTML content.
 
-    For example:
-        data = '<html><body>example</body></html>'
+    For app_scaffolding:
+        data = '<html><body>app_scaffolding</body></html>'
         return Response(data)
 
     For template rendered HTML, see TemplateHTMLRenderer.

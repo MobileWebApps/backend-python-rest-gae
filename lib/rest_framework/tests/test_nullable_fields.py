@@ -21,7 +21,7 @@ class NullableForeignKeyTests(APITestCase):
     urls = 'rest_framework.tests.test_nullable_fields'
 
     def test_updating_object_with_null_fk(self):
-        obj = NullableForeignKeySource(name='example', target=None)
+        obj = NullableForeignKeySource(name='app_scaffolding', target=None)
         obj.save()
         serialized_data = NullableFKSourceSerializer(obj).data
 
